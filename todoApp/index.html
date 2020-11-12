@@ -1,0 +1,53 @@
+<DOCTYPE html!>
+<html lang="en">
+   <head>     
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel = "Stylesheet" href = "dist/css/main.min.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+      <title>TODO</title>
+   </head>
+   <body>
+
+      <div class="mainTodo">
+         <div class="todoTitle">
+            <h1>
+               todos
+               <i id="pencil" class="far fa-edit"></class=></i>
+            </h1>
+         </div>
+         <div id = "todo">
+            <input class="display" type = "text" placeholder="add new task">
+            <div class="setting display">
+               <div class="done">
+                  <button class="done_y">done</button>
+                  <button class="done_n">not done</button>
+               </div>
+               <div class="deadline">
+                  <button class="deadline_d">day</button>
+                  <button class="deadline_w">week</button>
+               </div>
+            </div>
+            <ul class="todos"></ul>
+            <div id= "buttons">
+                  <button class="clear">clear</button>
+                  <button class="tipBtn">?</button>
+            </div>
+         </div>           
+      </div>
+
+      <div id = "overlay">
+         <a href="javascript:void(0)" class="closebtn">&times;</a>
+         <ul class="tips">
+               <li>Click on the pencil to show / hide input area and settings</li>
+               <li>Type text into input area and press enter to add todo to list</li>
+               <li>Hover over the todo and click the on trash can to delete</li>
+               <li>Click the clear button to clear all todos from list</li>
+         </ul>           
+      </div>
+
+      <script src="js/index.js"></script>
+      
+   </body>
+</html>
