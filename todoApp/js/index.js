@@ -15,6 +15,9 @@ function onPageLoaded() {
    // const deadlineDayBtn = document.querySelector('.deadline_d')
    // const deadlineWeakBtn = document.querySelector('.deadline_w')
 
+
+   let liArr = []
+
    pencil.addEventListener('click', function() {
       input.classList.toggle('display')
       setting.classList.toggle('display')
@@ -34,7 +37,14 @@ function onPageLoaded() {
          spanElement.append(icon)
          ul.appendChild(li).append(spanElement, newTodo, select)
 
-         localStorage.setItem('todoList', ul.innerHTML)  
+         let liObj = {
+            item: ul.innerHTML,
+            dateId: Date.now(),
+            isChecked:false
+         }
+         liArr.push(liObj)
+
+         localStorage.setItem('todoList', JSON.stringify(liArr))  
       
          deleteTodo()    
       }     
@@ -42,7 +52,7 @@ function onPageLoaded() {
 
    function deleteTodo() {
       for(let span of spans) {
-         span.addEventListener ("click", function(event) {
+         span.addEventListener("click", function(event) {
             span.parentElement.remove()
             event.stopPropagation()
          })
@@ -66,14 +76,17 @@ function onPageLoaded() {
 
    function loadTodo() {
       if(localStorage.getItem('todoList')) {
-      ul.innerHTML = localStorage.getItem('todoList')
-      deleteTodo()
+         let items = JSON.parse(localStorage.getItem('todoList'))
+         for (const element of items) {
+            ul.innerHTML = element.item
+         }
+         deleteTodo()
       }
    }
 
    clearBtn.addEventListener('click', function() {
-      ul.innerHTML= ""
-      localStorage.removeItem('todoList', ul.innerHTML)
+      ul.innerHTML = ""
+      localStorage.clear()
    })
 
    deleteTodo()
