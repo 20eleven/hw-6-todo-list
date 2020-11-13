@@ -15,9 +15,8 @@ function onPageLoaded() {
    // const deadlineDayBtn = document.querySelector('.deadline_d')
    // const deadlineWeakBtn = document.querySelector('.deadline_w')
 
-
-   let liArr = []
-
+   const liArr = []
+   
    pencil.addEventListener('click', function() {
       input.classList.toggle('display')
       setting.classList.toggle('display')
@@ -25,7 +24,16 @@ function onPageLoaded() {
 
    input.addEventListener("keypress", function(keyPressed) {
       if(keyPressed.which === 13) {
+         //FIXME: при обновлении страницы и добавлении новых элементов, перезаписывает полностью локал сторадж 
+         // if(JSON.parse(localStorage.getItem('todoList')) !== null) {
+         //    let concated = liArr.concat(JSON.parse(localStorage.getItem('todoList')))
+         //    console.log(concated);
+         //    localStorage.setItem('todoList', JSON.stringify(concated)) 
+         // }
+         
          const li = document.createElement("li")
+         li.classList.add(`${Date.now()}`)
+
          const spanElement = document.createElement("span")
          const icon = document.createElement("i")
          const select = document.createElement('select')
@@ -38,8 +46,8 @@ function onPageLoaded() {
          ul.appendChild(li).append(spanElement, newTodo, select)
 
          let liObj = {
-            item: ul.innerHTML,
-            dateId: Date.now(),
+            item: li.innerHTML,
+            dateId: li.classList.value,
             isChecked:false
          }
          liArr.push(liObj)
@@ -53,6 +61,22 @@ function onPageLoaded() {
    function deleteTodo() {
       for(let span of spans) {
          span.addEventListener("click", function(event) {
+
+            //TODO: удаление опрелеленного элемента из локал стораджа 
+            // let arrItems = JSON.parse(localStorage.getItem('todoList'))
+            // arrItems.forEach(element => {
+            //    if (span.parentElement.getAttribute('class') == element.dateId) {
+            //       let arr = JSON.parse(localStorage.getItem('todoList'))
+            //       if (arr.includes(element)) {
+            //          console.log('dfg');
+            //          arr.filter(function() {
+            //             return arr.includes(element)
+            //          })
+            //       }
+            //       localStorage.setItem('todoList', JSON.stringify(arr)) 
+            //    }
+            // })
+
             span.parentElement.remove()
             event.stopPropagation()
          })
@@ -74,12 +98,14 @@ function onPageLoaded() {
       overlay.style.height = "0"   
    })
 
-   function loadTodo() {
+   function loadTodo() {     
       if(localStorage.getItem('todoList')) {
          let items = JSON.parse(localStorage.getItem('todoList'))
-         for (const element of items) {
-            ul.innerHTML = element.item
-         }
+         let liStr = ''
+         items.map(element => {
+            liStr += `<li>${element.item}</li>` 
+         })
+         ul.innerHTML = liStr
          deleteTodo()
       }
    }
